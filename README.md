@@ -1,8 +1,6 @@
 # Andrew's Website Performance Optimization portfolio project
 
-### Hello!
-
-### Welcome to my sixth project in my Udacity Front-end Nano Degree.
+### Hello and Welcome to the sixth project in my Udacity Front-end Nano Degree.
 
 In this project I optimized this project site to reach a PageSpeed score of over 92 and optimized the javascript to run at 60fps by reducing rendering thrashing caused by forced synchronous layouts.
 
