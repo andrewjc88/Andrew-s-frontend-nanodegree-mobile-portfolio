@@ -459,10 +459,10 @@ var resizePizzas = function(size) {
       // Batching newwidths to pizzaContainersWidths to reduce Jank!
       pizzaContainersWidths.push (newwidth);
     }
-    for (var i = 0; i < pizzaContainers.length; i++) {
+    for (var u = 0; u < pizzaContainers.length; u++) {
 //    old sauce!
 //    pizzaObj[i].style.width = newwidth;
-      pizzaContainers[i].style.width = pizzaContainersWidths[i];
+      pizzaContainers[u].style.width = pizzaContainersWidths[u];
     }
   }
 
@@ -524,8 +524,8 @@ function updatePositions() {
     // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
-  for (var i = 0; i < items.length; i++) {
-    items[i].style.left = items[i].basicLeft + 100 * batchItems[i] + 'px';
+  for (var x = 0; x < items.length; x++) {
+    items[x].style.left = items[x].basicLeft + 100 * batchItems[x] + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
