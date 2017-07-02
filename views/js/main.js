@@ -492,8 +492,7 @@ console.log("Time to generate pizzas on load: " + timeToGenerate[0].duration + "
 // Iterator for number of times the pizzas in the background have scrolled.
 // Used by updatePositions() to decide when to log the average time per frame
 var frame = 0;
-var items = document.querySelectorAll('.mover');
-var batchItems = [];
+
 
 // Logs the average amount of time per 10 frames needed to move the sliding background pizzas on scroll.
 function logAverageFrame(times) {   // times is the array of User Timing measurements from updatePositions()
@@ -512,21 +511,20 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 
 function updatePositions() {
   frame++;
+  var items = document.querySelectorAll('.mover');
+  var batchItems = [];
   window.performance.mark("mark_start_frame");
-
-
 
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
 //    console.log(phase);
     batchItems.push(phase);
-//    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    // Old Pizzas v
+    // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
   for (var i = 0; i < items.length; i++) {
-//    console.log(batchItems[i].phase);
-    items[i].style.left = items[i].basicLeft + 100 * batchItems[i].phase + 'px';
-
+    items[i].style.left = items[i].basicLeft + 100 * batchItems[i] + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -558,5 +556,5 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
 
-  requestAnimationFrame(updatePositions);
+  updatePositions();
 });
