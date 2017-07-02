@@ -456,6 +456,7 @@ var resizePizzas = function(size) {
     for (var i = 0; i < pizzaContainers.length; i++) {
       var dx = determineDx(pizzaContainers[i], size);
       var newwidth = (pizzaContainers[i].offsetWidth + dx) + 'px';
+      // Batching newwidths to pizzaContainersWidths to reduce Jank!
       pizzaContainersWidths.push (newwidth);
     }
     for (var i = 0; i < pizzaContainers.length; i++) {
@@ -517,9 +518,9 @@ function updatePositions() {
 
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-//    console.log(phase);
+    // Batch those phases to reduce Jank!
     batchItems.push(phase);
-    // Old Pizzas v
+    // Old Pizza v
     // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
