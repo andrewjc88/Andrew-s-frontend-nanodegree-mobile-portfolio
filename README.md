@@ -4,7 +4,7 @@
 
 In this project I optimized this project site to reach a PageSpeed score of over 92 and optimized the javascript to run at 60fps by reducing rendering thrashing caused by forced synchronous layouts.
 
-The side is being hosted live here: https://andrewjc88.github.io/frontend-nanodegree-mobile-portfolio/
+The side is being hosted live here: https://andrewjc88.github.io/Andrew-s-frontend-nanodegree-mobile-portfolio/
 
 ## Optimizations Made
 * Minify critical css for all pages and embedded in to html files.
