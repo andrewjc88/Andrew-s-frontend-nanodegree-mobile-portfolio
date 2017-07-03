@@ -451,17 +451,17 @@ var resizePizzas = function(size) {
   var pizzaContainers = document.querySelectorAll(".randomPizzaContainer");
 
   var pizzaContainersWidths = [];
+  var dx = determineDx(pizzaContainers[0], size);
 
   function changePizzaSizes(size) {
     for (var i = 0; i < pizzaContainers.length; i++) {
-      var dx = determineDx(pizzaContainers[i], size);
-      var newwidth = (pizzaContainers[i].offsetWidth + dx) + 'px';
+      var newwidth = (pizzaContainers[0].offsetWidth + dx) + 'px';
       // Batching newwidths to pizzaContainersWidths to reduce Jank!
       pizzaContainersWidths.push (newwidth);
     }
     for (var u = 0; u < pizzaContainers.length; u++) {
 //    old sauce!
-//    pizzaObj[i].style.width = newwidth;
+//    pizzaObj[u].style.width = newwidth;
       pizzaContainers[u].style.width = pizzaContainersWidths[u];
     }
   }
@@ -513,11 +513,14 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   var items = document.querySelectorAll('.mover');
+
+  // Removed Document.body lookup from loop since it is consistant.
+  var topDistance = document.body.scrollTop;
   var batchItems = [];
   window.performance.mark("mark_start_frame");
 
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    var phase = Math.sin((topDistance / 1250) + (i % 5));
     // Batch those phases to reduce Jank!
     batchItems.push(phase);
     // Old Pizza v
@@ -546,7 +549,11 @@ document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
   var batch = [];
-  for (var i = 0; i < 200; i++) {
+  // Calculated number of pizza rows off of screen height.
+  var pizzaRows = (screen.height / s) * cols;
+  // Removed the querySelecotr from the loop since it doesn't change.
+  var movingPizzas = document.querySelector("#movingPizzas1");
+  for (var i = 0; i < pizzaRows; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
@@ -554,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    movingPizzas.appendChild(elem);
   }
 
   updatePositions();
